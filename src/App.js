@@ -6,7 +6,7 @@ const initState = {
   positive: 0,
   neutral: 0,
   negative: 0,
-  decks: 0,
+  decks: 8,
   trueCount: 0,
   lastClick: null,
 };
