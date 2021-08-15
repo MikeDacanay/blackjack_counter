@@ -64,11 +64,23 @@ const App = props => {
     });
   }
 
-  const returnTrueCount = () => {
+  const retTrueCount = () => {
     return (state.positive - state.negative)*(52/(52*state.decks - state.positive - state.neutral - state.negative));
   }
 
-  //Card count 2 = Bet 2 unit
+  const retBetCount = () => {
+    if(retTrueCount() < 2){
+      return 'BET 1 UNIT'
+    }
+    if(retTrueCount() < 3 && retTrueCount() >= 2){
+      return 'BET 2 UNIT'
+    }
+    if(retTrueCount() < 4 && retTrueCount() >= 3){
+      return 'BET 4 UNIT'
+    }else{
+      return 'BET 8 UNITS'
+    }
+  }
 
   return (
     <>
@@ -78,8 +90,8 @@ const App = props => {
       <div className="">Set Deck = {state.decks}</div>
       <div className="">FALSE COUNT = {state.positive - state.negative}</div>
       {/* <div className="bold">TRUE COUNT = {(state.positive - state.negative)*(52/(52*state.decks - state.positive - state.neutral - state.negative))}</div> */}
-      <div className="bold">TRUE COUNT = {returnTrueCount()}</div>
-      {/* <div className="bold">BET = {(state.positive - state.negative)*(52/(52*state.decks - state.positive - state.neutral - state.negative))}</div> */}
+      <div className="bold">TRUE COUNT = {retTrueCount()}</div>
+      <div className="bold">BET = {retBetCount()}</div>
       <button
         onClick={positiveHandlr}>2, 3, 4, 5, 6</button>
       <button
