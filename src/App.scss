@@ -1,3 +1,14 @@
 .bold{
   font-weight: bold;
 }
+
+.button {
+  &--1{
+    height: 125px;
+    width: 125px;
+    margin-right: 30px;
+  }
+  &--2{
+    margin-left: 60px;
+  }
+}
