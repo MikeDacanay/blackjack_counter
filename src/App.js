@@ -116,7 +116,7 @@ const App = props => {
 
   return (
     <>
-      <div className="">Positive Count = {state.positive}</div>
+      <div className="">Positive Count = {`${state.positive}`}</div>
       <div className="">Neutral Count = {state.neutral}</div>
       <div className="">Negative Count = {state.negative}</div>
       <div className="">Set Deck = {state.decks}</div>
