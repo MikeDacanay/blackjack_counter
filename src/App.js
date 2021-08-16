@@ -114,11 +114,13 @@ const App = props => {
     }
   }
 
+  const percOfTypeDrawn = type => Math.trunc(type/(state.positive+state.negative+state.neutral)*100)
+
   return (
     <>
-      <div className="">Positive Count = {`${state.positive}`}</div>
-      <div className="">Neutral Count = {state.neutral}</div>
-      <div className="">Negative Count = {state.negative}</div>
+      <div className="">Positive Count = {`${state.positive} : ${percOfTypeDrawn(state.positive)}%`}</div>
+      <div className="">Neutral Count = {`${state.neutral} : ${percOfTypeDrawn(state.neutral)}%`}</div>
+      <div className="">Negative Count = {`${state.negative} : ${percOfTypeDrawn(state.negative)}%`}</div>
       <div className="">Set Deck = {state.decks}</div>
       <div className="">FALSE COUNT = {state.positive - state.negative}</div>
       <div className="bold">TRUE COUNT = {retTrueCount()}</div>
