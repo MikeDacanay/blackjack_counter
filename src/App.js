@@ -8,11 +8,18 @@ const initState = {
   negative: 0,
   decks: 8,
   trueCount: 0,
+  ante: 0,
   lastClick: null,
 };
 
 const reducer = (state, action) => {
   switch(action.type){
+    case 'setAnte': {
+        return {
+          ...state,
+          ante: action.val,
+        }
+    }
     case 'positive':
       return {
         ...state,
@@ -94,6 +101,13 @@ export const App = props => {
       type: 'reset'
     })
   }
+
+  const setAnteHandlr = (e) => {
+    dispatch({
+      type: 'setAnte',
+      val: e.target.value
+    });
+  };
   
   const retTrueCount = () => {
     return (state.positive - state.negative)*(52/(52*state.decks - state.positive - state.neutral - state.negative));
@@ -101,21 +115,25 @@ export const App = props => {
 
 
   const retBetCount = () => {
-    if(retTrueCount() < 1){
-      return 'BET 1 UNIT'
-    }
-    if(retTrueCount() < 2 && retTrueCount() >= 1){
-      return 'BET 2 UNIT'
-    }
-    if(retTrueCount() < 3 && retTrueCount() >= 2){
-      return 'BET 3 UNIT'
-    }
+    // if(retTrueCount() < 1){
+    //   return 'BET 1 UNIT'
+    // }
+    // if(retTrueCount() < 2 && retTrueCount() >= 1){
+    //   return 'BET 2 UNIT'
+    // }
+    // if(retTrueCount() < 3 && retTrueCount() >= 2){
+    //   return 'BET 3 UNIT'
+    // }
     
-    if(retTrueCount() < 4 && retTrueCount() >= 3){
-      return 'BET 4 UNIT'
-    }
+    // if(retTrueCount() < 4 && retTrueCount() >= 3){
+    //   return 'BET 4 UNIT'
+    // }
     
-    return 'BET 5 UNIT'
+    // return 'BET 5 UNIT'
+
+    if(retTrueCount() < 0) return `${state.ante} or pause`;
+
+    return state.ante * 1 + Math.trunc(state.ante * retTrueCount());
   }
 
   const percOfTypeDrawn = type => Math.trunc(type/(state.positive+state.negative+state.neutral)*100)
@@ -128,10 +146,16 @@ export const App = props => {
       <div className="">Set Deck = {state.decks}</div>
       <div className="">FALSE COUNT = {state.positive - state.negative}</div>
       <div className="bold">TRUE COUNT = {retTrueCount()}</div>
-      <div className="bold">BET = {retBetCount()}</div>
+      <div className="bold bet">BET = {retBetCount()}</div>
       <div>
-      <label htmlFor=""></label>
-      <input type="text" />
+        <label className='bold' htmlFor="ante">Ante:</label>
+        <input 
+          id='ante' 
+          name='ante' 
+          type="text" 
+          onChange={(e) => setAnteHandlr(e)}/>
+        {/* <span>Bet Amount: <span className='bold'>{retTrueCount() > 0 ? 'greater than 1' : }</span></span>  */}
+        {/* state.ante */}
       </div>
       <button
         className='button--1' onClick={positiveHandlr}>2, 3, 4, 5, 6</button>
@@ -140,9 +164,9 @@ export const App = props => {
       <button
         className='button--1' onClick={negativeHandlr}>10, J, Q, K, A</button>
       <button
-        blassName='button--2' onClick={setDeckHandlr}>Add # Decks</button>
+        className='button--2' onClick={setDeckHandlr}>Add # Decks</button>
       <button
-        blassName='button--2' onClick={resetHandlr}>Reset</button>
+        className='button--2' onClick={resetHandlr}>Reset</button>
       <div className="">LAST CLICKED = {state.lastClick}</div>
     </>
   )
