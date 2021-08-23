@@ -47,7 +47,7 @@ const reducer = (state, action) => {
   }  
 }
 
-const App = props => {
+export const App = props => {
   const [state, dispatch] = useReducer(reducer, initState);
 
   const positiveHandlr = () => {
@@ -101,17 +101,21 @@ const App = props => {
 
 
   const retBetCount = () => {
-    if(retTrueCount() < 2){
+    if(retTrueCount() < 1){
       return 'BET 1 UNIT'
     }
-    if(retTrueCount() < 3 && retTrueCount() >= 2){
+    if(retTrueCount() < 2 && retTrueCount() >= 1){
       return 'BET 2 UNIT'
     }
+    if(retTrueCount() < 3 && retTrueCount() >= 2){
+      return 'BET 3 UNIT'
+    }
+    
     if(retTrueCount() < 4 && retTrueCount() >= 3){
       return 'BET 4 UNIT'
-    }else{
-      return 'BET 8 UNITS'
     }
+    
+    return 'BET 5 UNIT'
   }
 
   const percOfTypeDrawn = type => Math.trunc(type/(state.positive+state.negative+state.neutral)*100)
@@ -125,6 +129,10 @@ const App = props => {
       <div className="">FALSE COUNT = {state.positive - state.negative}</div>
       <div className="bold">TRUE COUNT = {retTrueCount()}</div>
       <div className="bold">BET = {retBetCount()}</div>
+      <div>
+      <label htmlFor=""></label>
+      <input type="text" />
+      </div>
       <button
         className='button--1' onClick={positiveHandlr}>2, 3, 4, 5, 6</button>
       <button
