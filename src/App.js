@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import useKeyPress from './hooks';
 
 import './App.scss';
 
@@ -115,21 +116,6 @@ export const App = props => {
 
 
   const retBetCount = () => {
-    // if(retTrueCount() < 1){
-    //   return 'BET 1 UNIT'
-    // }
-    // if(retTrueCount() < 2 && retTrueCount() >= 1){
-    //   return 'BET 2 UNIT'
-    // }
-    // if(retTrueCount() < 3 && retTrueCount() >= 2){
-    //   return 'BET 3 UNIT'
-    // }
-    
-    // if(retTrueCount() < 4 && retTrueCount() >= 3){
-    //   return 'BET 4 UNIT'
-    // }
-    
-    // return 'BET 5 UNIT'
 
     if(retTrueCount() < 0) return `${state.ante} or pause`;
 
@@ -137,6 +123,10 @@ export const App = props => {
   }
 
   const percOfTypeDrawn = type => Math.trunc(type/(state.positive+state.negative+state.neutral)*100)
+
+  useKeyPress('a', positiveHandlr);
+  useKeyPress('s', neutralHandlr);
+  useKeyPress('d', negativeHandlr);
 
   return (
     <>
